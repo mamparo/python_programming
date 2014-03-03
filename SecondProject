@@ -1,0 +1,12 @@
+file  = pickAFile()
+sound = makeSound(file)
+sample = getSamples(sound)
+
+for sample in range(0, getLength(sound)):
+  if sound.getSampleValue(sample) == 0:
+    print "1"
+  elif sound.getSampleValue(sample) < 0:
+    print "2"
+  else:
+    print "3"
+  
