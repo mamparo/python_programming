@@ -4,8 +4,8 @@ file  = pickAFile()
 sound = makeSound(file)
 sample = getSamples(sound)
 arr = []
-width = getLength(sound) % 400
-pic = makeEmptyPicture(400, wid)
+height = getLength(sound) / 1000
+pic = makeEmptyPicture(1000, height)
 
 for sample in range(0, getLength(sound)):
   if sound.getSampleValue(sample) == 0:
@@ -16,5 +16,7 @@ for sample in range(0, getLength(sound)):
     arr.append(3)
 
 for i in arr:
- if arr[i] == 1:
+ for j in pic:
+  
+ 
    
