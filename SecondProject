@@ -1,7 +1,7 @@
 file  = pickAFile()
 sound = makeSound(file)
 sample = getSamples(sound)
-width = 1000
+width = 250
 height = getLength(sound) / width
 pic = makeEmptyPicture(width, height)
 
@@ -25,32 +25,27 @@ highIndex = highestIndex / 2
 purple = makeColor(128, 0, 128)
 teal = makeColor(0, 128, 128)
 
+explore(sound)
+
 for sample in range(0, getLength(sound)):
   for x in range(0, width):
      pixel = getPixel(pic, x, y)
-     if sample == highestIndex:
-       setColor(pixel, blue)
-     elif sample == lowestIndex:
-       setColor(pixel, red)
-     elif sample == highIndex:
-       setColor(pixel, purple)
-     elif sample == lowIndex:
-       setColor(pixel, yellow)
-     elif sample > lowestIndex and sample < lowIndex:
-       setColor(pixel, green)
+     if sample > lowestIndex and sample < lowIndex:
+       setColor(pixel, black)
      elif sample > lowIndex and sample < middleIndex:
        setColor(pixel, cyan)
      elif sample > middleIndex and sample < highIndex:
        setColor(pixel, magenta)
      elif sample > highIndex and sample < highestIndex:
-       setColor(pixel, teal)
+       setColor(pixel, yellow)
      else:
-       setColor(pixel, black)
+       setColor(pixel, green)
+     repaint(pic)
      x += 1
   y += 1
   if y + 1 > height:
     break
 
-file = r"C:\Users\Myron\Desktop\temp.jpg"
+file = r"/Users/myrondarrylamparo/Desktop/temp.jpg"
 writePictureTo(pic, file)
 

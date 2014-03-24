@@ -4,13 +4,18 @@ wid = getWidth(picture)
 heigh = getHeight(picture)
 a = 0
 b = 0
-samp = wid * heigh
-sound = makeEmptySound(samp)
+duration = 100
 
-purple = makeColor(128, 0, 128)
 teal = makeColor(0, 128, 128)
 
 for x in range(0, wid):
   pix = getPixel(picture, a, b)
-  if pix == red:
+  if pix == black:
+    playNote(60, duration)
+  elif pix == cyan:
+    playNote(64, duration)
+  elif pix == magenta:
+    playNote(67, duration)
+  else:
+    playNote(71, duration)
     
