@@ -1,11 +1,13 @@
+#Picks a sound from the computer
 def pickSound():
   file  = pickAFile()
   sound = makeSound(file)
   return sound
 
+#makes a picture from the sound
 def makePicFromSound(sound):
   sample = getSamples(sound)
-  width = 250
+  width = 1000
   height = getLength(sound) / width
   pic = makeEmptyPicture(width, height)
   purple = makeColor(128, 0, 128)
@@ -18,18 +20,23 @@ def makePicFromSound(sound):
   x = 0
   y = 0
 
+  #gets the highest index and the lowest index from the sound
   for sample in range(0, getLength(sound)):
     if sound.getSampleValue(sample) > highestIndex:
       highestIndex = sound.getSampleValue(sample)
     if sound.getSampleValue(sample) < lowestIndex:
       lowestIndex = sound.getSampleValue(sample)
   
+  #splits the sections of the music into smaller indexies
   lowIndex = lowestIndex / 2
   highIndex = highestIndex / 2
   
+  #paints the picture 
   for sample in range(0, getLength(sound)):
+    #grabs the index from the file and grabs the pixel from "blank" picture
     index = sound.getSampleValue(sample)
     pixel = getPixel(pic, x, y)
+    #compares the index and paints the pixel at x and y with a color
     if index > lowestIndex and index < lowIndex:
       setColor(pixel, purple)
     elif index > lowIndex and index < middleIndex:
@@ -40,8 +47,10 @@ def makePicFromSound(sound):
       setColor(pixel, yellow)
     else:
       setColor(pixel, green)
+    #paints the picture in real time to show the randomness of the pixels
     repaint(pic)
     x += 1
+    #if it reaches the end of the picture, resets the x value and incements the y value by one
     if x + 1 > width:
       x = 0
       y += 1
@@ -50,16 +59,18 @@ def makePicFromSound(sound):
       
   return pic
 
+#saves the picture to the desktop
 def savePic(pic):
   file = r"/Users/myrondarrylamparo/Desktop/CST205 Media Folder/temp.jpg"
   writePictureTo(pic, file)
-  
+
+#picks a picture from the desktop  
 def pickPicture():
   newFile = pickAFile()
   picture = makePicture(newFile)
-  
   return picture
 
+#Makes psudo-music from the picture
 def makeSoundFromPicture(picture):
   wid = getWidth(picture)
   heigh = getHeight(picture)
@@ -68,7 +79,8 @@ def makeSoundFromPicture(picture):
   duration = 250
 
   teal = makeColor(0, 128, 128)
-
+  
+  #checks the pixel and plays a note depending on the pixel
   for x in range(0, wid):
     pix = getPixel(picture, a, b)
     if pix == purple:
@@ -81,7 +93,8 @@ def makeSoundFromPicture(picture):
       playNote(71, duration)
     else:
       playNote(72, duration)
-      
+   
+#main function   
 def main():
   sound = pickSound()
   picture = makePicFromSound(sound)
