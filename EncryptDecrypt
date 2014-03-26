@@ -1,3 +1,8 @@
+#Developer Notes: Please Utilize JES to compile this code. Also, if you do not want
+#to hear the entire music play thorough, you can stop the code anytime. If I were to
+#iterate this project again, I would save the music into a file so the user can play it
+#as long as they would want to.
+
 #Picks a sound from the computer
 def pickSound():
   file  = pickAFile()
@@ -83,6 +88,8 @@ def makeSoundFromPicture(picture):
   teal = makeColor(0, 128, 128)
   
   #checks the pixel and plays a note depending on the pixel
+  #NOTE: It may not play once in a while and you may need to wait
+  #for it to play.
   while(b < heigh):
     pix = getPixel(picture, a, b)
     if getColor(pix) > black and getColor(pix) < cyan:
@@ -101,6 +108,7 @@ def makeSoundFromPicture(picture):
       b += 1
     if b + 1 > heigh:
       break
+      
 #main function   
 def main():
   sound = pickSound()
