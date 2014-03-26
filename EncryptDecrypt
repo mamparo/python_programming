@@ -1,0 +1,95 @@
+def pickSound():
+  file  = pickAFile()
+  sound = makeSound(file)
+  return sound
+
+def makePicFromSound(sound):
+  sample = getSamples(sound)
+  width = 250
+  height = getLength(sound) / width
+  pic = makeEmptyPicture(width, height)
+  purple = makeColor(128, 0, 128)
+  teal = makeColor(0, 128, 128)
+  highestIndex = 0
+  lowestIndex = 0
+  lowIndex = 0
+  middleIndex = 0
+  highIndex = 0
+  x = 0
+  y = 0
+
+  for sample in range(0, getLength(sound)):
+    if sound.getSampleValue(sample) > highestIndex:
+      highestIndex = sound.getSampleValue(sample)
+    if sound.getSampleValue(sample) < lowestIndex:
+      lowestIndex = sound.getSampleValue(sample)
+  
+  lowIndex = lowestIndex / 2
+  highIndex = highestIndex / 2
+  
+  for sample in range(0, getLength(sound)):
+    index = sound.getSampleValue(sample)
+    pixel = getPixel(pic, x, y)
+    if index > lowestIndex and index < lowIndex:
+      setColor(pixel, purple)
+    elif index > lowIndex and index < middleIndex:
+      setColor(pixel, cyan)
+    elif index > middleIndex and index < highIndex:
+      setColor(pixel, teal)
+    elif index > highIndex and index < highestIndex:
+      setColor(pixel, yellow)
+    else:
+      setColor(pixel, green)
+    repaint(pic)
+    x += 1
+    if x + 1 > width:
+      x = 0
+      y += 1
+    if y + 1 > height:
+      break
+      
+  return pic
+
+def savePic(pic):
+  file = r"/Users/myrondarrylamparo/Desktop/CST205 Media Folder/temp.jpg"
+  writePictureTo(pic, file)
+  
+def pickPicture():
+  newFile = pickAFile()
+  picture = makePicture(newFile)
+  
+  return picture
+
+def makeSoundFromPicture(picture):
+  wid = getWidth(picture)
+  heigh = getHeight(picture)
+  a = 0
+  b = 0
+  duration = 250
+
+  teal = makeColor(0, 128, 128)
+
+  for x in range(0, wid):
+    pix = getPixel(picture, a, b)
+    if pix == purple:
+      playNote(60, duration)
+    elif pix == cyan:
+      playNote(64, duration)
+    elif pix == teal:
+      playNote(67, duration)
+    elif pix == yellow:
+      playNote(71, duration)
+    else:
+      playNote(72, duration)
+      
+def main():
+  sound = pickSound()
+  picture = makePicFromSound(sound)
+  savePic(picture)
+  picture = pickPicture()
+  makeSoundFromPicture(picture)
+
+main()
+
+if __name__ == "__main__":
+    main()
