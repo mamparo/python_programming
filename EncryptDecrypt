@@ -38,7 +38,7 @@ def makePicFromSound(sound):
     pixel = getPixel(pic, x, y)
     #compares the index and paints the pixel at x and y with a color
     if index > lowestIndex and index < lowIndex:
-      setColor(pixel, purple)
+      setColor(pixel, black)
     elif index > lowIndex and index < middleIndex:
       setColor(pixel, cyan)
     elif index > middleIndex and index < highIndex:
@@ -74,26 +74,33 @@ def pickPicture():
 def makeSoundFromPicture(picture):
   wid = getWidth(picture)
   heigh = getHeight(picture)
+  length = wid * heigh
   a = 0
   b = 0
   duration = 250
 
+  purple = makeColor(128, 0, 128)
   teal = makeColor(0, 128, 128)
   
   #checks the pixel and plays a note depending on the pixel
-  for x in range(0, wid):
+  while(b < heigh):
     pix = getPixel(picture, a, b)
-    if pix == purple:
+    if getColor(pix) > black and getColor(pix) < cyan:
       playNote(60, duration)
-    elif pix == cyan:
-      playNote(64, duration)
-    elif pix == teal:
+    elif getColor(pix) > cyan and getColor(pix) < teal: 
+      playNote(42, duration)
+    elif getColor(pix) > teal and getColor(pix) < yellow:
       playNote(67, duration)
-    elif pix == yellow:
+    elif getColor(pix) > yellow:
       playNote(71, duration)
     else:
-      playNote(72, duration)
-   
+      playNote(36, duration)
+    a += 1
+    if a + 1 > wid:
+      a = 0
+      b += 1
+    if b + 1 > heigh:
+      break
 #main function   
 def main():
   sound = pickSound()
